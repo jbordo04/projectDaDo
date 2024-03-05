@@ -1,11 +1,17 @@
-interface Idatos {
+interface Iplayer {
   id: number;
   name: string;
   date: string;
 }
 
-interface Igame {
-  numberGames: number;
+type Plays = {
+  id: number;
+  name: string;
+  duce: number;
+};
+interface Igame<T extends Plays> {
+  id: number;
+  hisotryPlays: T[];
   winRate: number;
 }
 
@@ -18,5 +24,5 @@ interface Igames {
 interface Isystem {
   listPlayers: () => void;
   winRateplayer: () => void;
-  winRateGlobal: number;
+  winRateGlobal: () => number;
 }
