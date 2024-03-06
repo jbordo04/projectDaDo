@@ -1,9 +1,12 @@
 import express from 'express';
+import playerController from './playerControllers';
+import gamesController from './gamesControllers';
+import rankingController from './rankingControllers';
 
 export const routerDado = express.Router();
 
 routerDado.post('/', playerController.createPlayer);
-routerDado.put('/:id', playerController.changeName);
+routerDado.put('/:id', playerController.putPlayerName);
 routerDado.get('/', playerController.getPlayersList);
 
 routerDado.post('/:id', gamesController.NewRollDice);
