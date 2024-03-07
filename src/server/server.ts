@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { json, urlencoded } from "body-parser";
 // import cors from "cors";
-import { routerDado } from "./infrastructure/router";
+import { routerDado } from "../infrastructure/router";
 export const PORT = Number(process.env.PORT) || 5000;
 import http from "http";
 
