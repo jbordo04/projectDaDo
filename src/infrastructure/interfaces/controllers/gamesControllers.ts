@@ -7,8 +7,9 @@ import { CreateRollDiceUsecase } from '../../../application/games/createRollDice
 import { DeleteRollDiceUsecase } from '../../../application/games/deleteRollDiceUsecase'; // Ruta per a DeleteRollDiceUsecase
 import { GetRollDiceListUsecase } from '../../../application/games/getRollDiceListUsecase'; // Ruta per a GetRollDiceListUsecase
 
+// Per a interactuar amb la capa de dades. Es passa a cada cas d'ús com a dependència.
 const rollDiceRepository = new RollDiceRepositoryImpl();
-
+// Els casos d'us es creen utilitzant el repositori anteriorment creat. Això permet que interactuïn amb el repositori quan sigui necessari.
 const createRollDiceUsecase = new CreateRollDiceUsecase(rollDiceRepository);
 const deleteRollDiceUsecase = new DeleteRollDiceUsecase(rollDiceRepository);
 const getRollDiceUsecase = new GetRollDiceListUsecase(rollDiceRepository);
@@ -37,20 +38,3 @@ export const gamesController = {
 };
 
 export default gamesController;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Per poder realitzar una tirada, un usuari/ària s’ha de registrar amb un nom no repetit. Al ser creat, se li assigna un identificador únic i una data de registre.
-
-Si l’usuari/ària ho desitja, pot no afegir cap nom i es dirà “ANÒNIM”. Pot haver-hi més d’un jugador/a “ANÒNIM”.
