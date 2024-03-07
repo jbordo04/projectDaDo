@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import { json, urlencoded } from "body-parser";
 // import cors from "cors";
-// import { router } from "./infrastructure/repositories/express-router";
+import { routerDado } from "./infrastructure/router";
 export const PORT = Number(process.env.PORT) || 5000;
 import http from "http";
 
@@ -17,7 +17,7 @@ export class Server {
     // this.express.use(cors());
     this.express.use(urlencoded({ extended: true }));
     this.express.use(json());
-    // this.express.use("/api", router);
+    this.express.use("/api", routerDado);
   }
 
   async start() {

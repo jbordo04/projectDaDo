@@ -13,7 +13,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
+model Players {
+  id        Int      @id @default(autoincrement())
+  name String? @updatedAt  
+  createdAt DateTime @default(now())
+}
+model Games {
+  id        Int      @id @default(autoincrement())
+  winrate   Int 
+  author    Players     @relation(fields: [playerId], references: [id])
+  playerId  Int
+}
+model Moves {
+  id        Int      @id @default(autoincrement())
+  valueDuce   Int 
+  playerId Int
+  gameId  Int
+  player Players  @relation(fields: [playerId], references: [id])
+  game    Games     @relation(fields: [gameId], references: [id])
+}
+model System {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
