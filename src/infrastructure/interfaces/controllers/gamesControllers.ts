@@ -1,9 +1,11 @@
 import { Request, Response } from 'express';
-import { RollDice } from './RollDice'; // Ruta per a RollDice
-import { RollDiceRepositoryImpl } from './RollDiceRepositoryImpl'; // Ruta per a RollDiceRepositoryImpl
-import { CreateRollDiceUsecase } from './CreateRollDiceUsecase'; // Ruta per a CreateRollDiceUsecase
-import { DeleteRollDiceUsecase } from './DeleteRollDiceUsecase'; // Ruta per a DeleteRollDiceUsecase
-import { GetRollDiceListUsecase } from './GetRollDiceListUsecase'; // Ruta per a GetRollDiceListUsecase
+
+import { RollDice } from '../../../domain/entities/game'; // Ruta per a RollDice
+import { RollDiceRepositoryImpl } from '../../database/rollDiceRepositoryImpl'; // Ruta per a RollDiceRepositoryImpl
+
+import { CreateRollDiceUsecase } from '../../../application/games/createRollDiceUsecase'; // Ruta per a CreateRollDiceUsecase
+import { DeleteRollDiceUsecase } from '../../../application/games/deleteRollDiceUsecase'; // Ruta per a DeleteRollDiceUsecase
+import { GetRollDiceListUsecase } from '../../../application/games/getRollDiceListUsecase'; // Ruta per a GetRollDiceListUsecase
 
 const rollDiceRepository = new RollDiceRepositoryImpl();
 
