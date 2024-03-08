@@ -1,5 +1,5 @@
 import { Game, RollDice } from '../../domain/entities/game';
-import { RollDiceRepository } from "../../domain/usecases/rollDiceRepository"
+import { RollDiceRepository } from "../../domain/usecases/gameRepository"
 export class RollDiceRepositoryImpl implements RollDiceRepository {
     private rollDice: [] = [];
 }

@@ -1,46 +1,27 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express"
+import { App_Player } from "../../../application/player/player-controllers"
 
-import { Player } from 
-import { PlayerRepositoryImpl} from
+export class PlayerController {
+  constructor(readonly app_player: App_Player) {}
 
-import { CreatePlayerUsecase } from 
-import { PutPlayerUsecase } from 
-import { GetPlayerUsecase } from '../../../application';
+  async createPlayer(req: Request, res: Response) {
+    const datos = req.body.data
 
-const playerRepository = new PlayerRepositoryImpl();
+    // Verifica si el nom ja existeix
+    if (!datos) return res.status(400)
+    else {
+      const result = await this.app_player.createPlayer(datos)
+      res.status(400).json({ error: "Aquest nom de jugador ja està registrat" })
+    }
+  }
+  async putPlayerName(req: Request, res: Response) {
+    const data = req.body.data
+    await this.app_player.putPlayerName(data)
+    res.status(200).send("Actualizado")
+  }
 
-const createPlayerUsecase = new CreatePlayerUsecase(playerRepository);
-const putPlayerUsecase = new PutPlayerUsecase(playerRepository);
-const getPlayerUsecase = new GetPlayerUsecase(playerRepository);
-
-export const playerController = {
-    createPlayer: (req: Request, res: Response) => {
-        const { name } = req.body;
-
-        // Verifica si el nom ja existeix
-        if (name) {
-            const existingPlayer = getPlayerUsecase.executeByName(name);
-            if (existingPlayer) {
-                return res.status(400).json({ error: "Aquest nom de jugador ja està registrat" });
-            }
-        }
-
-        // Si no es proporciona cap nom, es defineix com a "ANÒNIM"
-        const playerName = name || "ANÒNIM";
-
-        const newPlayer = new Player(playerName);
-
-        try {
-            // Genera un identificador únic per al jugador
-            newPlayer.id = generateUniqueId(); // Implementa la generació d'identificadors únics
-
-            // Registra la data de registre del jugador
-            newPlayer.registrationDate = new Date();
-
-            const createdPlayer = createPlayerUsecase.execute(newPlayer);
-            res.status(201).json(createdPlayer);
-        } catch (error) {
-            res.status(500).json({ error: "Error en la creació del jugador" });
-        }
-    },
-};
+  async getPlayersList(req: Request, res: Response) {
+    const players = await this.app_player.getPlayersList()
+    res.status(200).send(players)
+  }
+}
