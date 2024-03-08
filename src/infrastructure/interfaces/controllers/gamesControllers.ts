@@ -1,25 +1,11 @@
 import { Request, Response } from "express"
-
-import { RollDice } from "../../../domain/entities/game" // Ruta per a RollDice
+import { App_Games } from "../../../application/games/gameUsecase"
 import { RollDiceRepositoryImpl } from "../../database/rollDiceRepositoryImpl" // Ruta per a RollDiceRepositoryImpl
 
-import { CreateRollDiceUsecase } from "../../../application/games/createRollDiceUsecase" // Ruta per a CreateRollDiceUsecase
-import { DeleteRollDiceUsecase } from "../../../application/games/deleteRollDiceUsecase" // Ruta per a DeleteRollDiceUsecase
-import { GetRollDiceListUsecase } from "../../../application/games/getRollDiceListUsecase" // Ruta per a GetRollDiceListUsecase
-import { IgameRepository } from "../../../domain/usecases/gameRepository"
-
-// Per a interactuar amb la capa de dades. Es passa a cada cas d'ús com a dependència.
-const rollDiceRepository = new RollDiceRepositoryImpl()
-// Els casos d'us es creen utilitzant el repositori anteriorment creat. Això permet que interactuïn amb el repositori quan sigui necessari.
-const createRollDiceUsecase = new CreateRollDiceUsecase(rollDiceRepository)
-const deleteRollDiceUsecase = new DeleteRollDiceUsecase(rollDiceRepository)
-const getRollDiceUsecase = new GetRollDiceListUsecase(rollDiceRepository)
-
 export class GameController {
-  constructor(private readonly app_repository: IgameRepository) {}
+  constructor(private readonly app_game: App_Games) {}
 
   async newRollDice(req: Request, res: Response) {
-    const newRollDice = new RollDice()
     const createdRollDice = createRollDiceUsecase.execute(newRollDice)
     res.status(201).json(createdRollDice)
   }

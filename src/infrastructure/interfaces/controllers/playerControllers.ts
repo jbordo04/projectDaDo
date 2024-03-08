@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { App_Player } from "../../../application/player/player-controllers"
+import { App_Player } from "../../../application/player/playerUsecase"
 
 export class PlayerController {
   constructor(readonly app_player: App_Player) {}

@@ -1,23 +1,23 @@
-import "dotenv/config";
-import express from "express";
-import { json, urlencoded } from "body-parser";
+import "dotenv/config"
+import express from "express"
+import { json, urlencoded } from "body-parser"
 // import cors from "cors";
-// import { router } from "./infrastructure/repositories/express-router";
-export const PORT = Number(process.env.PORT) || 4000;
-import http from "http";
+export const PORT = Number(process.env.PORT) || 4000
+import http from "http"
+import { routerDado } from "../interfaces/controllers/router"
 
 export class Server {
-  private server: http.Server | null;
-  readonly port: number;
-  readonly express: express.Application;
+  private server: http.Server | null
+  readonly port: number
+  readonly express: express.Application
   constructor(port: number) {
-    this.port = port;
-    this.server = null;
-    this.express = express();
+    this.port = port
+    this.server = null
+    this.express = express()
     // this.express.use(cors());
-    this.express.use(urlencoded({ extended: true }));
-    this.express.use(json());
-    // this.express.use("/api", router);
+    this.express.use(urlencoded({ extended: true }))
+    this.express.use(json())
+    this.express.use("/api", routerDado)
   }
 
   async start() {
@@ -26,28 +26,25 @@ export class Server {
         this.server = this.express.listen(this.port, async () => {
           console.log(
             `[APP] - Server is running on: http://localhost:${this.port}/api`
-          );
-          resolve();
-        });
+          )
+          resolve()
+        })
       } catch (err) {
-        reject(err);
+        reject(err)
       }
-    });
+    })
   }
   async stop() {
     await new Promise<void>((resolve) => {
       if (this.server) {
         this.server.close(() => {
-          console.log(`[APP] - Server is closed`);
-          resolve();
-        });
+          console.log(`[APP] - Server is closed`)
+          resolve()
+        })
       } else {
-        console.log(`[APP] - No Server to close`);
-        resolve();
+        console.log(`[APP] - No Server to close`)
+        resolve()
       }
-    });
+    })
   }
 }
-
-const app = new Server(PORT);
-app.start();

@@ -1,9 +1,7 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
+//npx prisma db push => para pushear en la bd de mySQL database
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,30 +13,42 @@ datasource db {
 
 model Players {
   id        Int      @id @default(autoincrement())
-  name String? @updatedAt  
+  name      String?
   createdAt DateTime @default(now())
+  games     PlayerGame[]  
+  moves     Moves[] 
 }
+
 model Games {
-  id        Int      @id @default(autoincrement())
-  winrate   Int 
-  author    Players     @relation(fields: [playerId], references: [id])
-  playerId  Int
+  id         Int      @id @default(autoincrement())
+  winrate    Int 
+  players PlayerGame[]  
+  moves      Moves[]
+}
+model PlayerGame {
+  id Int @id @default(autoincrement())
+  playerId Int
+  player Players @relation(fields: [playerId], references: [id])
+  gameId Int
+  game Games @relation(fields: [gameId], references: [id])
 }
 model Moves {
   id        Int      @id @default(autoincrement())
-  valueDuce   Int 
-  playerId Int
-  gameId  Int
-  player Players  @relation(fields: [playerId], references: [id])
-  game    Games     @relation(fields: [gameId], references: [id])
+  valueDuce Int 
+  playerId  Int
+  gameId    Int
+  player    Players  @relation(fields: [playerId], references: [id])
+  game      Games    @relation(fields: [gameId], references: [id])
 }
-model System {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-}
+
+// model System {
+//   id        Int      @id @default(autoincrement())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   title     String   @db.VarChar(255)
+//   content   String?
+//   published Boolean  @default(false)
+//   author    Players  @relation(fields: [authorId], references: [id])
+//   authorId  Int
+// }
+
