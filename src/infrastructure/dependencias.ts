@@ -1,25 +1,25 @@
-import { App_Player } from "../application/player/playerUsecase"
-import { App_Games } from "../application/games/gameUsecase"
-import { App_Ranking } from "../application/ranking/rankingUsecase"
+import { App_Player } from "../application/usecases/playerUsecase"
+import { App_Games } from "../application/usecases/gameUsecase"
+import { App_Ranking } from "../application/usecases/rankingUsecase"
 
-import { PlayerController } from "./interfaces/controllers/playerControllers"
-import { GameController } from "./interfaces/controllers/gamesControllers"
-import { RankingController } from "./interfaces/controllers/rankingControllers"
+import { PlayerController } from "./controllers/playerControllers"
+import { GameController } from "./controllers/gamesControllers"
+import { RankingController } from "./controllers/rankingControllers"
 
-import { InMemoryPlayerRepository } from "./in-memory-repository"
-import { InMemoryGameRepository } from "./in-memory-repository"
-import { InMemoryRankingRepository } from "./in-memory-repository"
+import { PlayerRepository } from "./repositories/player-repository"
+import { GameRepository } from "./repositories/game-repository"
+import { RankingRepository } from "./repositories/ranking-repository"
 
-export const inMemoryPlayerRepository = new InMemoryPlayerRepository()
-export const inMemoryGameRepository = new InMemoryGameRepository()
-export const inMemoryRankingRepository = new InMemoryRankingRepository()
+export const playerRepository = new PlayerRepository()
+export const gameRepository = new GameRepository()
+export const rankingRepository = new RankingRepository()
 
 //
-export const app_player = new App_Player(inMemoryPlayerRepository)
-export const app_game = new App_Games(inMemoryGameRepository)
-export const app_ranking = new App_Ranking(inMemoryRankingRepository)
+export const Appli_player = new App_Player(playerRepository)
+export const Appli_game = new App_Games(gameRepository)
+export const Appli_ranking = new App_Ranking(rankingRepository)
 
 //Aixo es el que es relaciona amb cada ruta, que s'injecta la estructura de la appplication pertinent
-export const playerController = new PlayerController(app_player)
-export const gameController = new GameController(app_game)
-export const rankingController = new RankingController(app_ranking)
+export const playerController = new PlayerController(Appli_player)
+export const gameController = new GameController(Appli_game)
+export const rankingController = new RankingController(Appli_ranking)

@@ -5,7 +5,7 @@ type datos = {
 interface Iplayer {
   id: number
   name: string
-  date: string
+  createdAt: Date
 }
 
 interface IrollDice {
@@ -17,7 +17,8 @@ interface IrollDice {
 }
 
 interface IrouterPlayer {
-  createPlayer: (data: Iplayer) => void
+  checkPlayer: (name: string) => void
+  createPlayer: (name: string) => void
   putPlayerName: (data: datos) => void
   getPlayersList: () => void
 }

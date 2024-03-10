@@ -1,5 +1,5 @@
 import { IrouterRanking } from "../../domain/entities/types"
-import { IrankingRepository } from "../../domain/usecases/rankingRepository"
+import { IrankingRepository } from "../../domain/intefaces/rankingRepository"
 
 export class App_Ranking implements IrouterRanking {
   constructor(private readonly app_repository: IrankingRepository) {}

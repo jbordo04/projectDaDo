@@ -1,19 +1,21 @@
 import { IrouterPlayer, datos, Iplayer } from "../../domain/entities/types"
-import { IplayerRepository } from "../../domain/usecases/playerRepository"
+import { IplayerRepository } from "../../domain/intefaces/playerRepository"
 
 export class App_Player implements IrouterPlayer {
   constructor(private readonly app_repository: IplayerRepository) {}
 
-  async createPlayer(data: Iplayer): Promise<void> {
-    const result = await this.app_repository.createPlayer(data)
+  async checkPlayer(name: string): Promise<void> {
+    const result = await this.app_repository.checkPlayer(name)
+    return result
+  }
+
+  async createPlayer(name: string): Promise<void> {
+    const result = await this.app_repository.createPlayer(name)
     return result
   }
 
   async putPlayerName(data: datos): Promise<void> {
-    const result = await this.app_repository.putPlayerName(
-      data.id,
-      data.new_name
-    )
+    const result = await this.app_repository.putPlayerName(data)
     console.log("Cambiado el nombre")
     return result
   }

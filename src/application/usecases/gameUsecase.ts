@@ -1,5 +1,5 @@
 import { IrouterGame } from "../../domain/entities/types"
-import { IgameRepository } from "../../domain/usecases/gameRepository"
+import { IgameRepository } from "../../domain/intefaces/gameRepository"
 
 export class App_Games implements IrouterGame {
   constructor(private readonly app_repository: IgameRepository) {}

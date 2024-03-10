@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { App_Ranking } from "../../../application/ranking/rankingUsecase"
+import { App_Ranking } from "../../application/usecases/rankingUsecase"
 
 export class RankingController {
   constructor(readonly app_ranking: App_Ranking) {}

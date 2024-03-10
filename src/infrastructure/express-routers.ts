@@ -3,7 +3,7 @@ import {
   playerController,
   rankingController,
   gameController,
-} from "../../dependencias"
+} from "./dependencias"
 
 export const routerDado = express.Router()
 

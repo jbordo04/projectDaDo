@@ -4,7 +4,7 @@ import { json, urlencoded } from "body-parser"
 // import cors from "cors";
 export const PORT = Number(process.env.PORT) || 4000
 import http from "http"
-import { routerDado } from "../interfaces/controllers/router"
+import { routerDado } from "../express-routers"
 
 export class Server {
   private server: http.Server | null
@@ -34,6 +34,7 @@ export class Server {
       }
     })
   }
+
   async stop() {
     await new Promise<void>((resolve) => {
       if (this.server) {
