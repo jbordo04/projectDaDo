@@ -24,9 +24,12 @@ interface IPlayerWithRolls {
 }
 
 interface IrouterPlayer {
-  createPlayerUseCase: (name: string) => void
-  getAllPlayersUseCase: (name: string) => void
-  renamePlayerUseCase: (name: string, playerId: number) => Promise<IPlayer>
+  createPlayerUseCase: (name: string) => Promise<IPlayer | null>
+  getAllPlayersUseCase: (name: string) => Promise<object | null>
+  renamePlayerUseCase: (
+    name: string,
+    playerId: number
+  ) => Promise<IPlayer | null>
 }
 interface IrouterGame {
   // newRollDice: (playerId: number) => void
@@ -35,9 +38,9 @@ interface IrouterGame {
   getRollUseCase: (playerId: number) => void
 }
 interface IrouterRanking {
-  getAllRanking: () => void
-  getLosersRanking: () => void
-  getWinnersRanking: () => void
+  getAllRankingsUseCase: () => object
+  getWorstPlayerUseCase: () => object
+  getBestPlayerUseCase: () => object
 }
 
 export {
@@ -46,6 +49,5 @@ export {
   IrouterGame,
   IrouterPlayer,
   IrouterRanking,
-  datos,
   IPlayerWithRolls,
 }

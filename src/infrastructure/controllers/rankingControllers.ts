@@ -4,18 +4,42 @@ import { App_Ranking } from "../../application/usecases/rankingUsecase"
 export class RankingController {
   constructor(readonly app_ranking: App_Ranking) {}
 
-  async getAllRanking(req: Request, res: Response): Promise<void> {
-    const ranking = await this.app_ranking.getAllRanking()
-    res.status(200).send(ranking)
+  async getAllRankings(req: Request, res: Response) {
+    try {
+      const ranking = await this.app_ranking.getAllRankingsUseCase()
+      res.status(200).send(ranking)
+    } catch (error) {
+      if (error instanceof Error) {
+        res
+          .status(500)
+          .send({ message: "Error interno del servidor", error: error })
+      }
+    }
   }
 
-  async getLosersRanking(req: Request, res: Response): Promise<void> {
-    const rankingLoser = await this.app_ranking.getLosersRanking()
-    res.status(200).send(rankingLoser)
+  async getWorstPlayer(req: Request, res: Response) {
+    try {
+      const worstPlayer = await this.app_ranking.getWorstPlayerUseCase()
+      res.status(200).send(worstPlayer)
+    } catch (error) {
+      if (error instanceof Error) {
+        res
+          .status(500)
+          .send({ message: "Error interno del servidor", error: error })
+      }
+    }
   }
 
-  async getWinnersRanking(req: Request, res: Response): Promise<void> {
-    const rankingWinners = await this.app_ranking.getWinnersRanking()
-    res.status(200).send(rankingWinners)
+  async getBestPlayer(req: Request, res: Response) {
+    try {
+      const bestPlayer = await this.app_ranking.getBestPlayerUseCase()
+      res.status(200).send(bestPlayer)
+    } catch (error) {
+      if (error instanceof Error) {
+        res
+          .status(500)
+          .send({ message: "Error interno del servidor", error: error })
+      }
+    }
   }
 }

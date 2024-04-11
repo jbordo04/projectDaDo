@@ -1,42 +1,57 @@
 import { Request, Response } from "express"
 import { App_Games } from "../../application/usecases/gameUsecase"
+import jwt from "jsonwebtoken"
 
 export class GameController {
   constructor(private readonly app_game: App_Games) {}
 
-  async newRollDice(req: Request, res: Response) {
-    try {
-      const playerId = Number(req.params.id)
+  async rollDice(req: Request, res: Response) {
+    const token = req.headers.authorization?.split(" ")[1]
 
+    try {
+      if (!token) {
+        throw new Error("Token no proporcionado")
+      }
+      jwt.verify(token, "secret")
+      const playerId = Number(req.params.id)
       const rollDiceResult = await this.app_game.rollDiceUseCase(playerId)
 
       res.status(201).send(rollDiceResult)
     } catch (error) {
-      res
-        .status(500)
-        .send({ message: "Error interno del servidor:", error: error })
+      if (error instanceof Error) {
+        return res
+          .status(500)
+          .send({ message: "Error interno del servidor:", error: error })
+      }
     }
   }
 
-  async getRollDiceList(req: Request, res: Response) {
+  async deleteRollsById(req: Request, res: Response) {
+    try {
+      const playerId = Number(req.params.id)
+      await this.app_game.deleteRollUseCase(playerId)
+      res.status(200).send({ message: `Tiradas eliminadas exitosamente` })
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).send({
+          message: "Error interno del servidor:",
+          error: error.message,
+        })
+      }
+    }
+  }
+
+  async getRolls(req: Request, res: Response) {
     try {
       const playerId = Number(req.params.id)
       const playerRolls = await this.app_game.getRollUseCase(playerId)
-      res.status(200).send(playerRolls)
+      res.status(201).send(playerRolls)
     } catch (error) {
-      res
-        .status(500)
-        .send({ message: "Error interno del servidor:", error: error })
-    }
-  }
-
-  async deleteRollDice(req: Request, res: Response) {
-    const rollDiceId = Number(req.params.id)
-    try {
-      await this.app_game.deleteRollUseCase(rollDiceId) // Esperar l'execució i gestionar errors
-      res.status(204).send()
-    } catch (error) {
-      res.status(500).json({ error: "Internal server error" })
+      if (error instanceof Error) {
+        res
+          .status(500)
+          .send({ message: "Error interno del servidor:", error: error })
+      }
     }
   }
 }

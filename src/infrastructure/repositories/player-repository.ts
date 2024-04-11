@@ -6,7 +6,7 @@ import { PrismaClient } from "../../../prisma/geneated/client"
 
 export class PlayerRepository implements IplayerRepository {
   prisma: PrismaClient
-  constuctor() {
+  constructor() {
     this.prisma = new PrismaClient()
   }
   async findPlayerByName(name: string): Promise<IPlayer | null> {
@@ -35,6 +35,7 @@ export class PlayerRepository implements IplayerRepository {
   }
 
   async createPlayer(name: string): Promise<IPlayer> {
+    console.log("nn", name)
     return await this.prisma.player.create({
       data: {
         name: name.trim() || "ANONIMO",

@@ -6,7 +6,6 @@ export class GameRepository implements IgameRepository {
   prisma: PrismaClient
   constructor() {
     this.prisma = new PrismaClient()
-    // console.log(this.prisma)
   }
   async rollDice(
     dice1: number,

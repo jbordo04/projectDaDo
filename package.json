@@ -10,7 +10,8 @@
     "docker": "docker run  -e MYSQL_ROOT_PASSWORD=secret -d mysql:latest",
     "build": "tsc",
     "migrate": "npx prisma migrate dev",
-    "generate": "npx prisma generate"
+    "generate": "npx prisma generate",
+    "eslint": "eslint --debug \"./**/*.{js,ts}\""
   },
   "author": "",
   "license": "ISC",
@@ -18,12 +19,15 @@
     "@prisma/client": "^5.10.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "express": "^4.18.3",
+    "eslint": "^9.0.0",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.11.24"
   }
 }

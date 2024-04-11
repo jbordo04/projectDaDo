@@ -1,25 +1,53 @@
-import { IrouterPlayer, datos, IPlayer } from "../../domain/entities/types"
-import { IPlayerRepository } from "../../domain/intefaces/playerRepository"
+import {
+  IrouterPlayer,
+  IPlayer,
+  IPlayerWithRolls,
+} from "../../domain/entities/types"
+import { IplayerRepository } from "../../domain/intefaces/playerRepository"
+import { PlayerRepository } from "../../infrastructure/repositories/player-repository"
 export class App_Player implements IrouterPlayer {
-  constructor(private readonly app_repository: IPlayerRepository) {}
+  constructor(private readonly app_repository: PlayerRepository) {}
+  // constructor(private readonly app_repository: IplayerRepository) {}
 
-  // async checkPlayer(name: string): Promise<void> {
-  //   const result = await this.app_repository.checkPlayer(name)
-  //   return result
-  // }
+  async createPlayerUseCase(name: string): Promise<IPlayer | null> {
+    console.log("createPlayerUseCase", name)
+    const existingPlayer = await this.app_repository.findPlayerByName(name)
 
-  async createPlayerUseCase(name: string): Promise<void> {
-    const result = await this.app_repository.createPlayer(name)
-    return result
+    if (!existingPlayer) {
+      return await this.app_repository.createPlayer(name)
+    } else {
+      throw new Error("Ya existe un jugador con este nombre!")
+    }
   }
 
-  async getAllPlayersUseCase(data: datos): Promise<void> {
-    const result = await this.app_repository.putPlayerName(data)
-    console.log("Cambiado el nombre")
-    return result
+  async getAllPlayersUseCase(): Promise<object | null> {
+    const allPlayersAndRolls = await this.app_repository.getAllPlayersAndRolls()
+    if (!allPlayersAndRolls) {
+      return null
+    }
+    const playersWithSuccessPercentage = allPlayersAndRolls.map(
+      (player: IPlayerWithRolls) => {
+        const totalRolls = player.rolls.length
+        const successfulRolls = player.rolls.filter(
+          (roll) => roll.isWinner === true
+        ).length
+
+        const successPercentage = (successfulRolls / totalRolls) * 100
+
+        return {
+          id: player.id,
+          name: player.name,
+          successPercentage: successPercentage || "Sin partidas ganadas",
+        }
+      }
+    )
+    return playersWithSuccessPercentage
   }
 
-  async renamePlayerUseCase(name: string, playerId: number): Promise<void> {
+  async renamePlayerUseCase(
+    name: string,
+    playerId: number
+  ): Promise<IPlayer | null> {
     const existingPlayer = await this.app_repository.existingPlayer(playerId)
 
     if (!existingPlayer) {

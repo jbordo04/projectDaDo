@@ -1,5 +1,7 @@
+import { PrismaClient } from "../../../prisma/geneated/client"
+import { IPlayerWithRolls } from "../entities/types"
 export interface IrankingRepository {
-  getAllRanking: () => Promise<void>
-  getLosersRanking: () => Promise<void>
-  getWinnersRanking: () => Promise<void>
+  prisma: PrismaClient
+  getAllPlayersAndRolls(): Promise<IPlayerWithRolls[]>
+  getAllPlayers(): Promise<IPlayerWithRolls[]>
 }

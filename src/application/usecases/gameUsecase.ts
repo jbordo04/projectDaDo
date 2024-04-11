@@ -5,13 +5,13 @@ export class App_Games implements IrouterGame {
   constructor(private readonly app_repository: IgameRepository) {}
 
   async rollDiceUseCase(playerId: number) {
-    // Realizar la tirada de dos dados
+    // Make roll dice
     const dice1 = Math.floor(Math.random() * 6) + 1
     const dice2 = Math.floor(Math.random() * 6) + 1
     const total = dice1 + dice2
     const win = total === 7
 
-    // Guardar la tirada en la base de datos
+    // Store roll in BD
     return await this.app_repository.rollDice(dice1, dice2, win, playerId)
   }
 
