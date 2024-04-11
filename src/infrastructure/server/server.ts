@@ -1,7 +1,7 @@
 import "dotenv/config"
 import express from "express"
 import { json, urlencoded } from "body-parser"
-// import cors from "cors";
+import cors from "cors"
 export const PORT = Number(process.env.PORT) || 4000
 import http from "http"
 import { routerDado } from "../express-routers"
@@ -14,7 +14,7 @@ export class Server {
     this.port = port
     this.server = null
     this.express = express()
-    // this.express.use(cors());
+    this.express.use(cors())
     this.express.use(urlencoded({ extended: true }))
     this.express.use(json())
     this.express.use("/api", routerDado)

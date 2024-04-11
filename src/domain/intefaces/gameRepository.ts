@@ -1,5 +1,15 @@
+import { PrismaClient } from "../../../prisma/geneated/client"
+import { IRollDice, IPlayer } from "../entities/types"
+
 export interface IgameRepository {
-  newRollDice: (id: number) => Promise<void>
-  deleteRollDice: (id: number) => Promise<void>
-  getRollDiceList: (id: number) => Promise<void>
+  prisma: PrismaClient
+  rollDice: (
+    dice1: number,
+    dice2: number,
+    isWinner: boolean,
+    playerId: number
+  ) => Promise<IRollDice | null>
+  getRollsById: (playerId: number) => Promise<IRollDice[] | null>
+  deleteRollsById: (playerId: number) => Promise<void>
+  getPlayerById: (playerId: number) => Promise<IPlayer | null>
 }

@@ -1,9 +1,13 @@
-import { Iplayer } from "../entities/types"
-import { datos } from "../entities/types"
+import { IPlayerWithRolls, IPlayer } from "../entities/types"
+import { PrismaClient } from "../../../prisma/geneated/client"
 
 export interface IplayerRepository {
-  checkPlayer: (name: string) => void
-  createPlayer: (name: string) => void
-  putPlayerName: (data: datos) => void
-  getPlayersList: () => void
+  prisma: PrismaClient
+  findPlayerByName(name: string): Promise<IPlayer | null>
+  findPlayerByID(playerId: number): Promise<IPlayer | null>
+  createPlayer(name: string): Promise<IPlayer>
+  existingPlayer(id: number): Promise<IPlayer | null>
+  existingName(name: string, playerId: number): Promise<IPlayer | null>
+  updatePlayerName(name: string, playerId: number): Promise<IPlayer | null>
+  getAllPlayersAndRolls(): Promise<IPlayerWithRolls[] | null>
 }

@@ -1,27 +1,35 @@
-import { IrouterPlayer, datos, Iplayer } from "../../domain/entities/types"
-import { IplayerRepository } from "../../domain/intefaces/playerRepository"
-
+import { IrouterPlayer, datos, IPlayer } from "../../domain/entities/types"
+import { IPlayerRepository } from "../../domain/intefaces/playerRepository"
 export class App_Player implements IrouterPlayer {
-  constructor(private readonly app_repository: IplayerRepository) {}
+  constructor(private readonly app_repository: IPlayerRepository) {}
 
-  async checkPlayer(name: string): Promise<void> {
-    const result = await this.app_repository.checkPlayer(name)
-    return result
-  }
+  // async checkPlayer(name: string): Promise<void> {
+  //   const result = await this.app_repository.checkPlayer(name)
+  //   return result
+  // }
 
-  async createPlayer(name: string): Promise<void> {
+  async createPlayerUseCase(name: string): Promise<void> {
     const result = await this.app_repository.createPlayer(name)
     return result
   }
 
-  async putPlayerName(data: datos): Promise<void> {
+  async getAllPlayersUseCase(data: datos): Promise<void> {
     const result = await this.app_repository.putPlayerName(data)
     console.log("Cambiado el nombre")
     return result
   }
 
-  async getPlayersList(): Promise<void> {
-    const result = await this.app_repository.getPlayersList()
-    return result
+  async renamePlayerUseCase(name: string, playerId: number): Promise<void> {
+    const existingPlayer = await this.app_repository.existingPlayer(playerId)
+
+    if (!existingPlayer) {
+      throw new Error("Jugador no encontrado")
+    }
+    const existingName = await this.app_repository.existingName(name, playerId)
+    if (existingName) {
+      throw new Error("Ya existe un jugador con este nombre!")
+    }
+
+    return await this.app_repository.updatePlayerName(name, playerId)
   }
 }

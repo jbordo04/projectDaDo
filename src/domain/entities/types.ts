@@ -1,31 +1,38 @@
-type datos = {
+interface IRoll {
   id: number
-  new_name: string
+  dice1: number
+  dice2: number
+  isWinner: boolean
 }
-interface Iplayer {
+interface IPlayer {
   id: number
   name: string
   createdAt: Date
 }
 
-interface IrollDice {
+interface IRollDice {
   id: number
   dice1: number
   dice2: number
-  result: number
-  winner: boolean
+  isWinner: boolean
+  playerId: number
+}
+interface IPlayerWithRolls {
+  id: number
+  name: string
+  rolls: IRoll[]
 }
 
 interface IrouterPlayer {
-  checkPlayer: (name: string) => void
-  createPlayer: (name: string) => void
-  putPlayerName: (data: datos) => void
-  getPlayersList: () => void
+  createPlayerUseCase: (name: string) => void
+  getAllPlayersUseCase: (name: string) => void
+  renamePlayerUseCase: (name: string, playerId: number) => Promise<IPlayer>
 }
 interface IrouterGame {
-  newRollDice: (id: number) => void
-  deleteRollDice: (id: number) => void
-  getRollDiceList: (id: number) => void
+  // newRollDice: (playerId: number) => void
+  rollDiceUseCase: (playerId: number) => Promise<IRollDice | null>
+  deleteRollUseCase: (playerId: number) => void
+  getRollUseCase: (playerId: number) => void
 }
 interface IrouterRanking {
   getAllRanking: () => void
@@ -33,32 +40,12 @@ interface IrouterRanking {
   getWinnersRanking: () => void
 }
 
-interface Igame<T extends IrollDice> {
-  id: number
-  hisotryPlays: T[]
-  winRate: number
-}
-
-interface Igames {
-  listLastPlays: () => number[]
-  result: string
-  winRate: number
-}
-
-interface Isystem {
-  listPlayers: () => void
-  winRateplayer: () => void
-  winRateGlobal: () => number
-}
-
 export {
-  Iplayer,
-  IrollDice,
-  Igame,
-  Igames,
-  Isystem,
+  IPlayer,
+  IRollDice,
   IrouterGame,
   IrouterPlayer,
   IrouterRanking,
   datos,
+  IPlayerWithRolls,
 }

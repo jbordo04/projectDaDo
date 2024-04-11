@@ -1,34 +1,87 @@
-import { Iplayer, datos } from "../../domain/entities/types"
+import { IPlayer, IPlayerWithRolls } from "../../domain/entities/types"
 import { IplayerRepository } from "../../domain/intefaces/playerRepository"
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "../../../prisma/geneated/client"
 
 //Aqui van las persistencias/consultas posibles de cada metodo
-const prisma = new PrismaClient()
 
 export class PlayerRepository implements IplayerRepository {
-  async checkPlayer(name: string) {
-    return await prisma.players.findFirst({
-      where: { name: name, NOT: { name: "ANONIMO" } },
-    })
+  prisma: PrismaClient
+  constuctor() {
+    this.prisma = new PrismaClient()
   }
-  async createPlayer(name: string): Promise<Iplayer> {
-    const createPLayer = await prisma.players.create({
-      data: {
-        name: name || "ANONIMO",
-        createdAt: Date(),
+  async findPlayerByName(name: string): Promise<IPlayer | null> {
+    return await this.prisma.player.findFirst({
+      where: {
+        name: name.trim(),
+        NOT: {
+          name: "ANONIMO",
+        },
       },
     })
-    return createPLayer
   }
-  async putPlayerName(data: datos) {
-    const id = await prisma.players.update({
-      where: { id: data.id },
-      data: { name: data.new_name },
+
+  async findPlayerByID(playerId: number): Promise<IPlayer> {
+    const foundPlayer = await this.prisma.player.findUnique({
+      where: {
+        id: playerId,
+      },
     })
-    return
+
+    if (!foundPlayer) {
+      throw new Error("Jugador no encontrado")
+    }
+
+    return foundPlayer
   }
-  async getPlayersList() {
-    const result = await prisma.players.findMany()
-    return result
+
+  async createPlayer(name: string): Promise<IPlayer> {
+    return await this.prisma.player.create({
+      data: {
+        name: name.trim() || "ANONIMO",
+      },
+    })
+  }
+
+  async existingPlayer(playerId: number): Promise<IPlayer | null> {
+    return await this.prisma.player.findUnique({
+      where: {
+        id: playerId,
+      },
+    })
+  }
+
+  async existingName(name: string, playerId: number): Promise<IPlayer | null> {
+    return await this.prisma.player.findFirst({
+      where: {
+        name: name,
+        id: {
+          not: {
+            equals: playerId,
+          },
+        },
+      },
+    })
+  }
+
+  async updatePlayerName(
+    name: string,
+    playerId: number
+  ): Promise<IPlayer | null> {
+    return await this.prisma.player.update({
+      where: {
+        id: playerId,
+      },
+      data: {
+        name: name || "ANONIMO",
+      },
+    })
+  }
+
+  async getAllPlayersAndRolls(): Promise<IPlayerWithRolls[] | null> {
+    return await this.prisma.player.findMany({
+      include: {
+        rolls: true,
+      },
+    })
   }
 }
