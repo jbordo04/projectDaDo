@@ -2,14 +2,12 @@ import { Request, Response } from "express"
 import { App_Player } from "../../application/usecases/playerUsecase"
 import jwt from "jsonwebtoken"
 export class PlayerController {
-  // app_Player: App_Player
   constructor(readonly appPlayer: App_Player) {}
-  // this.app_Player = appPlayer
 
   async createPlayer(req: Request, res: Response) {
     try {
       const { name } = req.body
-      console.log("nombrePOST", typeof name)
+      // console.log("nombrePOST", typeof name)
       const newPlayer = await this.appPlayer.createPlayerUseCase(name)
       const newToken = jwt.sign(
         {
@@ -52,8 +50,9 @@ export class PlayerController {
     }
   }
 
-  async getAllPlayers(req: Request, res: Response) {
+  async getAllPlayers(_req: Request, res: Response) {
     try {
+      console.log("hola")
       const allPlayers = await this.appPlayer.getAllPlayersUseCase()
       return res.status(200).send(allPlayers)
     } catch (error) {

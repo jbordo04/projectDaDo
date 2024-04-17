@@ -4,7 +4,7 @@ import { json, urlencoded } from "body-parser"
 import cors from "cors"
 export const PORT = Number(process.env.PORT) || 4000
 import http from "http"
-import { routerDado } from "../express-routers"
+import { router } from "../express-routers"
 
 export class Server {
   private server: http.Server | null
@@ -17,7 +17,7 @@ export class Server {
     this.express.use(cors())
     this.express.use(urlencoded({ extended: true }))
     this.express.use(json())
-    this.express.use("/api", routerDado)
+    this.express.use("/api", router)
   }
 
   async start() {

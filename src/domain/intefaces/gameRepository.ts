@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../../prisma/geneated/client"
+import { PrismaClient } from "../../../prisma/generated/client"
 import { IRollDice, IPlayer } from "../entities/types"
 
 export interface IgameRepository {

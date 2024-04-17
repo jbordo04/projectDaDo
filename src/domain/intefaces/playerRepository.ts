@@ -1,5 +1,5 @@
 import { IPlayerWithRolls, IPlayer } from "../entities/types"
-import { PrismaClient } from "../../../prisma/geneated/client"
+import { PrismaClient } from "../../../prisma/generated/client"
 
 export interface IplayerRepository {
   prisma: PrismaClient

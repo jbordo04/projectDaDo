@@ -4,7 +4,7 @@ import { App_Ranking } from "../../application/usecases/rankingUsecase"
 export class RankingController {
   constructor(readonly app_ranking: App_Ranking) {}
 
-  async getAllRankings(req: Request, res: Response) {
+  async getAllRankings(_req: Request, res: Response) {
     try {
       const ranking = await this.app_ranking.getAllRankingsUseCase()
       res.status(200).send(ranking)
@@ -17,7 +17,7 @@ export class RankingController {
     }
   }
 
-  async getWorstPlayer(req: Request, res: Response) {
+  async getWorstPlayer(_req: Request, res: Response) {
     try {
       const worstPlayer = await this.app_ranking.getWorstPlayerUseCase()
       res.status(200).send(worstPlayer)
@@ -30,7 +30,7 @@ export class RankingController {
     }
   }
 
-  async getBestPlayer(req: Request, res: Response) {
+  async getBestPlayer(_req: Request, res: Response) {
     try {
       const bestPlayer = await this.app_ranking.getBestPlayerUseCase()
       res.status(200).send(bestPlayer)

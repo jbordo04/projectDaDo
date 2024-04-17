@@ -3,11 +3,9 @@ import {
   IPlayer,
   IPlayerWithRolls,
 } from "../../domain/entities/types"
-import { IplayerRepository } from "../../domain/intefaces/playerRepository"
 import { PlayerRepository } from "../../infrastructure/repositories/player-repository"
 export class App_Player implements IrouterPlayer {
   constructor(private readonly app_repository: PlayerRepository) {}
-  // constructor(private readonly app_repository: IplayerRepository) {}
 
   async createPlayerUseCase(name: string): Promise<IPlayer | null> {
     console.log("createPlayerUseCase", name)

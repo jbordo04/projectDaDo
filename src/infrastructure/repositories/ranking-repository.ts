@@ -1,5 +1,5 @@
 import { IrankingRepository } from "../../domain/intefaces/rankingRepository"
-import { PrismaClient } from "../../../prisma/geneated/client"
+import { PrismaClient } from "../../../prisma/generated/client"
 import { IPlayerWithRolls } from "../../domain/entities/types"
 
 export class RankingRepository implements IrankingRepository {

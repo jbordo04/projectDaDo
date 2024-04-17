@@ -4,7 +4,7 @@
 //npx prisma db push => para pushear en la bd de mySQL database
 generator client {
   provider = "prisma-client-js"
-  output= "./geneated/client"
+  output= "./generated/client"
 }
 
 datasource db {
@@ -30,6 +30,4 @@ model Roll {
     playerId  Int
     player    Player   @relation(fields: [playerId], references: [id])
 }
-
-
 

@@ -1,5 +1,5 @@
 import { IgameRepository } from "../../domain/intefaces/gameRepository"
-import { PrismaClient } from "../../../prisma/geneated/client"
+import { PrismaClient } from "../../../prisma/generated/client"
 import { IPlayer, IRollDice } from "../../domain/entities/types"
 
 export class GameRepository implements IgameRepository {

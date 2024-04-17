@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../../prisma/geneated/client"
+import { PrismaClient } from "../../../prisma/generated/client"
 import { IPlayerWithRolls } from "../entities/types"
 export interface IrankingRepository {
   prisma: PrismaClient

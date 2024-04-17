@@ -4,9 +4,9 @@
 //npx prisma db push => para pushear en la bd de mySQL database
 generator client {
   provider = "prisma-client-js"
-  output= "./geneated/client"
+  output= "./generated/client"
 }
-
+// MY_SQL_DATABASE_URL="mysql://root:example@localhost:3307/mydb"
 datasource db {
   provider = "mysql"
   url      = env("MY_SQL_DATABASE_URL")

@@ -1,6 +1,6 @@
 import { IPlayer, IPlayerWithRolls } from "../../domain/entities/types"
 import { IplayerRepository } from "../../domain/intefaces/playerRepository"
-import { PrismaClient } from "../../../prisma/geneated/client"
+import { PrismaClient } from "../../../prisma/generated/client"
 
 //Aqui van las persistencias/consultas posibles de cada metodo
 
@@ -10,14 +10,20 @@ export class PlayerRepository implements IplayerRepository {
     this.prisma = new PrismaClient()
   }
   async findPlayerByName(name: string): Promise<IPlayer | null> {
-    return await this.prisma.player.findFirst({
-      where: {
-        name: name.trim(),
-        NOT: {
-          name: "ANONIMO",
+    console.log("findPlayerByName ", name)
+    try {
+      return await this.prisma.player.findFirst({
+        where: {
+          name: name.trim(),
+          NOT: {
+            name: "ANONIMO",
+          },
         },
-      },
-    })
+      })
+    } catch (err) {
+      console.log(err)
+    }
+    return null
   }
 
   async findPlayerByID(playerId: number): Promise<IPlayer> {
