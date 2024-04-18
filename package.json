@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test11": "jest ",
+    "test": "jest --runInBand --verbose",
     "dev": "nodemon src/index.ts",
     "dev2": "ts-node --env-file=.env src/index.ts",
     "docker": "docker run  -e MYSQL_ROOT_PASSWORD=example -e MYSQL_DATABASE=mydb -dp3307:3306 mysql:latest",
@@ -12,8 +12,8 @@
     "migrate": "npx prisma migrate dev",
     "generate": "npx prisma generate",
     "eslint": "eslint --debug \"./**/*.{js,ts}\"",
-    "test": "npx jest api_games.test.ts",
-    "test12": "npx jest api_players.test.ts"
+    "test:games": "npx jest api_games.test.ts",
+    "test:players": "npx jest api_players.test.ts"
   },
   "author": "",
   "license": "ISC",
