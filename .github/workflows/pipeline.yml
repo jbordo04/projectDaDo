@@ -22,12 +22,12 @@ jobs:
           npm ci
 
       - name: Generate Prisma client
-        run: npx prisma generate --schema=./prisma/schema.prisma
+        run: npm run generate
 
       - name: Migrate Prisma database
-        run: npx prisma migrate dev --name init
+        run: npm run migrate
 
       - name: Build Project
-        run: npm run test
+        run: npm run build
       - name: Run tests
         run: npm run test
