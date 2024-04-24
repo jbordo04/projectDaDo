@@ -125,8 +125,8 @@ describe("Pruebas para el endpoint GET /players", () => {
         name: "Jugador1",
         rolls: {
           create: [
-            { dice1: 1, dice2: 6, isWinner: true },
-            { dice1: 3, dice2: 4, isWinner: false },
+            { dice1: 1, dice2: 6, is_winner: true },
+            { dice1: 3, dice2: 4, is_winner: false },
           ],
         },
       },
@@ -137,8 +137,8 @@ describe("Pruebas para el endpoint GET /players", () => {
         name: "Jugador2",
         rolls: {
           create: [
-            { dice1: 2, dice2: 3, isWinner: false },
-            { dice1: 1, dice2: 6, isWinner: true },
+            { dice1: 2, dice2: 3, is_winner: false },
+            { dice1: 1, dice2: 6, is_winner: true },
           ],
         },
       },

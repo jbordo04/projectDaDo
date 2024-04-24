@@ -27,7 +27,7 @@ export class App_Player implements IrouterPlayer {
       (player: IPlayerWithRolls) => {
         const totalRolls = player.rolls.length
         const successfulRolls = player.rolls.filter(
-          (roll) => roll.isWinner === true
+          (roll) => roll.is_winner === true
         ).length
 
         const successPercentage = (successfulRolls / totalRolls) * 100

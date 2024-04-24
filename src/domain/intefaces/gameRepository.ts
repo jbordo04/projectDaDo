@@ -6,8 +6,8 @@ export interface IgameRepository {
   rollDice: (
     dice1: number,
     dice2: number,
-    isWinner: boolean,
-    playerId: number
+    is_winner: boolean,
+    player_id: number
   ) => Promise<IRollDice | null>
   getRollsById: (playerId: number) => Promise<IRollDice[] | null>
   deleteRollsById: (playerId: number) => Promise<void>

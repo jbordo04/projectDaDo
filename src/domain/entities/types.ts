@@ -2,20 +2,20 @@ interface IRoll {
   id: number
   dice1: number
   dice2: number
-  isWinner: boolean
+  is_winner: boolean
 }
 interface IPlayer {
   id: number
   name: string
-  createdAt: Date
+  created_at: Date
 }
 
 interface IRollDice {
   id: number
   dice1: number
   dice2: number
-  isWinner: boolean
-  playerId: number
+  is_winner: boolean
+  player_id: number
 }
 interface IPlayerWithRolls {
   id: number

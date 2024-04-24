@@ -6,13 +6,7 @@ export class GameController {
   constructor(private readonly app_game: App_Games) {}
 
   async rollDice(req: Request, res: Response) {
-    const token = req.headers.authorization?.split(" ")[1]
-
     try {
-      if (!token) {
-        throw new Error("Token no proporcionado")
-      }
-      jwt.verify(token, "secret")
       const playerId = Number(req.params.id)
       const rollDiceResult = await this.app_game.rollDiceUseCase(playerId)
 

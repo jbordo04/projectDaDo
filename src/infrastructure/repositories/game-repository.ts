@@ -10,15 +10,15 @@ export class GameRepository implements IgameRepository {
   async rollDice(
     dice1: number,
     dice2: number,
-    isWinner: boolean,
+    is_winner: boolean,
     playerId: number
   ): Promise<IRollDice | null> {
     return await this.prisma.roll.create({
       data: {
         dice1: dice1,
         dice2: dice2,
-        isWinner: isWinner,
-        playerId: playerId,
+        is_winner: is_winner,
+        player_id: playerId,
       },
     })
   }
@@ -26,10 +26,10 @@ export class GameRepository implements IgameRepository {
   async getRollsById(playerId: number): Promise<IRollDice[]> {
     return await this.prisma.roll.findMany({
       where: {
-        playerId: playerId,
+        player_id: playerId,
       },
       orderBy: {
-        createdAt: "desc",
+        created_at: "desc",
       },
     })
   }
@@ -37,7 +37,7 @@ export class GameRepository implements IgameRepository {
   async deleteRollsById(playerId: number): Promise<void> {
     await this.prisma.roll.deleteMany({
       where: {
-        playerId,
+        id: playerId,
       },
     })
   }

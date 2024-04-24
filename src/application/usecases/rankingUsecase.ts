@@ -15,7 +15,8 @@ export class App_Ranking implements IrouterRanking {
 
     const totalWins = allPlayersAndPlays
       .map(
-        (player) => player.rolls.filter((roll) => roll.isWinner === true).length
+        (player) =>
+          player.rolls.filter((roll) => roll.is_winner === true).length
       )
       .reduce((acc, cur) => acc + cur, 0)
 
@@ -25,7 +26,7 @@ export class App_Ranking implements IrouterRanking {
     const getSuccessRate = (player: IPlayerWithRolls) => {
       const totalRolls = player.rolls.length
       if (totalRolls === 0) return 0
-      const wins = player.rolls.filter((roll) => roll.isWinner === true).length
+      const wins = player.rolls.filter((roll) => roll.is_winner === true).length
       return (wins / totalRolls) * 100
     }
 
@@ -51,7 +52,7 @@ export class App_Ranking implements IrouterRanking {
     const getSuccessRate = (player: IPlayerWithRolls) => {
       const totalRolls = player.rolls.length
       if (totalRolls === 0) return 0
-      const wins = player.rolls.filter((roll) => roll.isWinner === true).length
+      const wins = player.rolls.filter((roll) => roll.is_winner === true).length
       return (wins / totalRolls) * 100
     }
 
@@ -78,7 +79,7 @@ export class App_Ranking implements IrouterRanking {
     const getSuccessRate = (player: IPlayerWithRolls) => {
       const totalRolls = player.rolls.length
       if (totalRolls === 0) return 0
-      const wins = player.rolls.filter((roll) => roll.isWinner === true).length
+      const wins = player.rolls.filter((roll) => roll.is_winner === true).length
       return (wins / totalRolls) * 100
     }
 
