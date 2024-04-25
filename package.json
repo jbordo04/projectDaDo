@@ -9,7 +9,7 @@
     "dev2": "ts-node --env-file=.env src/index.ts",
     "docker": "docker start sprint6 || npm run docker:create",
     "docker:create": "docker run  -e MYSQL_ROOT_PASSWORD=example -e MYSQL_DATABASE=mydb -dp3307:3306 --name  sprint6 mysql:latest",
-    "build": "tsc",
+    "build": "tsc && node dist/index.js",
     "migrate": "npx prisma migrate dev",
     "generate": "npx prisma generate",
     "eslint": "eslint --debug \"./**/*.{js,ts}\"",

@@ -21,20 +21,42 @@ For a better experience, this project was made with docker features, you can ins
 After that, we need to create a connection and synchronize it with our Prisma ORM. Just copy the following command into your terminal.
 
 ```sh
-npm run i
+npm i
 npm run docker
 npm run generate
 npm run migrate
 ```
 
-Now just lets check it out with some virtual Client like POSTMAN, INSOMNIA or our best extension ThunderCLient VSC.
+Now just lets check it out with some virtual Client like POSTMAN, INSOMNIA or our best extension ThunderCLient VSC, but before run our server.
+
+```sh
+npm run build
+```
 
 ## Testing?
 
-To prevent any issue and ensure that all functions works as expected, we need to test every function or route. Youcan choose to run all or a subset of the tests, whichever you prefer.
+To prevent any issue and ensure that all functions works as expected, we need to test every function or route. You can choose to run all or a subset of the tests, whichever you prefer.
 
 ```sh
 npm run test
+```
+
+```sh
 npm run test:players
+```
+
+```sh
 npm run test:games
 ```
+
+## API Documentation??
+
+We'll use ThunderClient or a free-alternative-to-share Rest Client extension
+
+For Rest Client :
+
+- In `api.htttp` will have all queries and its properties
+
+- Data `setting.json` must be in setting of VSC
+
+- To get value of {{ value }}, press Ctr + shitf + P => Rest Client: Switch Environment => local
