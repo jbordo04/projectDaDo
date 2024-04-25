@@ -1,8 +1,8 @@
 import { IPlayerWithRolls, IrouterRanking } from "../../domain/entities/types"
-import { IrankingRepository } from "../../domain/intefaces/rankingRepository"
+import { RankingRepository } from "../../infrastructure/repositories/ranking-repository"
 
 export class App_Ranking implements IrouterRanking {
-  constructor(private readonly app_repository: IrankingRepository) {}
+  constructor(private readonly app_repository: RankingRepository) {}
 
   async getAllRankingsUseCase(): Promise<object> {
     const allPlayersAndPlays = await this.app_repository.getAllPlayersAndRolls()

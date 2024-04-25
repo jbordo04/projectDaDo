@@ -1,8 +1,9 @@
 import { IrouterGame } from "../../domain/entities/types"
 import { IgameRepository } from "../../domain/intefaces/gameRepository"
+import { GameRepository } from "../../infrastructure/repositories/game-repository"
 
 export class App_Games implements IrouterGame {
-  constructor(private readonly app_repository: IgameRepository) {}
+  constructor(private readonly app_repository: GameRepository) {}
 
   async rollDiceUseCase(playerId: number) {
     // Make roll dice
@@ -16,6 +17,7 @@ export class App_Games implements IrouterGame {
   }
 
   async deleteRollUseCase(playerId: number) {
+    console.log("Deleting roll", playerId)
     const checkPlayer = await this.app_repository.getPlayerById(playerId)
     if (!checkPlayer) throw new Error("No existe este jugador")
     await this.app_repository.deleteRollsById(playerId)

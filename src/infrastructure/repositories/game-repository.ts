@@ -37,7 +37,7 @@ export class GameRepository implements IgameRepository {
   async deleteRollsById(playerId: number): Promise<void> {
     await this.prisma.roll.deleteMany({
       where: {
-        id: playerId,
+        player_id: playerId,
       },
     })
   }
