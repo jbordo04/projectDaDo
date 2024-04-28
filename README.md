@@ -51,12 +51,12 @@ npm run test:games
 
 ## API Documentation??
 
-We'll use ThunderClient or a free-alternative-to-share Rest Client extension
+We'll use ThunderClient or a free-alternative-to-share Rest Client extension of VSC
 
 For Rest Client :
 
-- In `api.htttp` will have all queries and its properties
+- In `api.http` will have all queries and its properties
 
-- Data `setting.json` must be in setting of VSC
+- Data `setting.json` must be in general setting file of VSC
 
 - To get value of {{ value }}, press Ctr + shitf + P => Rest Client: Switch Environment => local
