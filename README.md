@@ -24,7 +24,6 @@ After that, we need to create a connection and synchronize it with our Prisma OR
 npm i
 npm run docker
 npm run generate
-npm run migrate
 ```
 
 Now just lets check it out with some virtual Client like POSTMAN, INSOMNIA or our best extension ThunderCLient VSC, but before run our server.
